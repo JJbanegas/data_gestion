@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Practica_MVC.Models.Producto>
+
+@{
+    ViewBag.Title = "ListaProductos";
+}
+
+<h2>ListaProductos</h2>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Agregar Producto
+</button>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AgregarProducto", "Producto", FormMethod.Post))
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.LabelFor(d => d.FirstOrDefault().Nombre)
+                            @Html.TextBoxFor(d => d.FirstOrDefault().Nombre, "", new { @class = "form-control" })
+                            @Html.LabelFor(d => d.FirstOrDefault().Precio)
+                            @Html.TextBoxFor(d => d.FirstOrDefault().Precio, "", new { @class = "form-control" })
+                            @Html.LabelFor(d => d.FirstOrDefault().Cantidad)
+                            @Html.TextBoxFor(d => d.FirstOrDefault().Cantidad, "", new { @class = "form-control" })
+                            <br />
+                            <div style="text-align:right;">
+                                <input value="Guardar" class="btn btn-primary" type="submit" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cantidad)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
