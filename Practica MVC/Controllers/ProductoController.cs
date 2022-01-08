@@ -19,11 +19,28 @@ namespace Practica_MVC.Controllers
         }
 
         //POST: Producto
-        public ActionResult AgregarProducto(Producto model)
+        public ActionResult AgregarProducto(Producto entity)
         {
             var productoService = new ProductoService();
-            productoService.InsertProducto(model);
-            return View("ListaProductos");
+            productoService.InsertProducto(entity);
+            var model = productoService.GetProductos();
+            return View("ListaProductos",model);
         } 
+
+        //PUT: Producto
+        public ActionResult ModificarProducto(Producto entity)
+        {
+            var productoService = new ProductoService();
+            productoService.UpdateProducto(entity);
+            var model = productoService.GetProductos();
+            return View("ListaProductos", model);
+        }
+
+        public JsonResult Listar()
+        {
+            var productoService = new ProductoService();
+            var model = productoService.GetProductos();
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
     }
 }

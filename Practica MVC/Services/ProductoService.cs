@@ -21,5 +21,11 @@ namespace Practica_MVC.Services
             var productoConect = GetConexion().GetCollection<Producto>("productos");
             productoConect.InsertOne(entity);
         }
+
+        public void UpdateProducto(Producto entity)
+        {
+            var productoConect = GetConexion().GetCollection<Producto>("productos");
+            productoConect.ReplaceOne(d => d.Id == entity.Id, entity);
+        }
     }
 }

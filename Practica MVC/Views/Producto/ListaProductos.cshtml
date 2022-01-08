@@ -6,7 +6,7 @@
 
 <h2>ListaProductos</h2>
 
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="agregar">
     Agregar Producto
 </button>
 
@@ -17,7 +17,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" data->
                 @using (Html.BeginForm("AgregarProducto", "Producto", FormMethod.Post))
                 {
                     <div class="row">
@@ -30,7 +30,7 @@
                             @Html.TextBoxFor(d => d.FirstOrDefault().Cantidad, "", new { @class = "form-control" })
                             <br />
                             <div style="text-align:right;">
-                                <input value="Guardar" class="btn btn-primary" type="submit" />
+                                <input value="Grabar" class="btn btn-primary" type="submit" id="enviar" />
                             </div>
                         </div>
                     </div>
@@ -67,7 +67,10 @@
                 @Html.DisplayFor(modelItem => item.Cantidad)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @*Html.ActionLink("Edit", "Edit", new { id = item.Id })*@
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="modificar">
+                    Modificar
+                </button> |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
@@ -75,3 +78,16 @@
     }
 
 </table>
+<script>
+    var idd = "A";
+    $("#modificar").click(function () {
+        $("#enviar").val("Modificar");
+        idd = "M";
+    });
+
+    $("#agregar").click(function () {
+        $("#enviar").val("Agregar");
+        idd= "A"
+    });
+
+</script>
